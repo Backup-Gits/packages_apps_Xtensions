@@ -68,7 +68,6 @@ public class NotificationSettings extends SettingsPreferenceFragment implements
     private static final String MISSED_CALL_BREATH = "missed_call_breath";
     private static final String VOICEMAIL_BREATH = "voicemail_breath";
     private static final String PREF_TICKER_FONT_STYLE = "status_bar_ticker_font_style";
-    private static final String CATEGORY_LED = "light_cat";
     private static final String PREF_NOTIF_CAT_STYLE = "notification_header_cat_style";
     private static final String BG_COLOR = "notif_bg_color";
     private static final String ICON_COLOR = "notif_icon_color";
@@ -77,8 +76,6 @@ public class NotificationSettings extends SettingsPreferenceFragment implements
 
     protected Context mContext;
     private IOverlayManager mOverlayService;
-    private Preference mChargingLeds;
-    private Preference mNotifLeds;
     private ListPreference mFlashlightOnCall;
     private SwitchPreference mSmsBreath;
     private SwitchPreference mMissedCallBreath;
@@ -102,18 +99,6 @@ public class NotificationSettings extends SettingsPreferenceFragment implements
         mContext = getActivity().getApplicationContext();
         ContentResolver resolver = getActivity().getContentResolver();
         final PreferenceScreen prefScreen = getPreferenceScreen();
-
-        final PreferenceCategory lightCat = (PreferenceCategory) prefScreen
-                .findPreference(CATEGORY_LED);
-        final boolean variableIntrusiveLed = getResources().getBoolean(
-                    com.android.internal.R.bool.config_intrusiveBatteryLed);
-
-        if (variableIntrusiveLed) {
-            mChargingLeds = (Preference) findPreference("charging_light");
-            mNotifLeds = (Preference) findPreference("notification_light");
-        } else {
-            prefScreen.removePreference(lightCat);
-        }
 
         PreferenceCategory incallVibCategory = (PreferenceCategory) findPreference(INCALL_VIB_OPTIONS);
 
